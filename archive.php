@@ -41,13 +41,11 @@ $options=load_theme_options();
 						
 					<?php 
 						
-						$terms = get_terms("areas");
+					$terms = get_terms("areas");
 					 if ( !empty( $terms ) && !is_wp_error( $terms ) ){
-
 					     foreach ( $terms as $term ) { ?>
-						
-									<!-- ITEM-->
-										<li><a href="<?php echo get_term_link( $term ); ?>" title=""><?php echo $term->name; ?></a></li>
+						<!-- ITEM-->
+							<li><a href="<?php echo get_term_link( $term ); ?>" title=""><?php echo $term->name; ?></a></li>
 
 		<!-- /ITEM-->
 		<hr class="hr-sm">
@@ -87,7 +85,7 @@ $options=load_theme_options();
 									<?php the_post_thumbnail('thumbnail');?>
 								</div>
 								<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-									<h3><a href="<?php the_permalink(); ?>" title=""><?php the_title(); ?></a> <small>Lefkada</small></h3>
+									<h3><a href="<?php the_permalink(); ?>" title=""><?php the_title(); ?></a> <small><?php echo $options['city']; ?></small></h3>
 									<ul class="list-inline">
 										<li><a href="#" title=""><?php echo get_post_meta( get_the_ID(), 'bookandpay_maxpeople', true); ?> persone</a></li>
 										<li><a href="#" title="">a partire da &euro; <?php echo get_post_meta( get_the_ID(), 'apartment-rate-1-3', true); ?></a></li>

@@ -14,14 +14,14 @@
         <div class="item  <?php echo $css; ?>">
           <?php the_post_thumbnail('slider-crop'); ?>
           <div class="carousel-caption">
-          	<div class="caption_carousel">
+
 	            <h2><?php the_title(); ?></h2>
 	            <?php $max_pax=get_post_meta($post->ID,'bookandpay_maxpeople',true); ?>
 				<p class="lead">up to <?php echo $max_pax; ?> <i class="fa fa-user"></i><br />from  <?php echo get_post_meta($post->ID, "apartment-rate-1-".$max_pax, true); ?>&euro;</p>
 
 				<p><a href="<?php the_permalink(); ?>" class="btn-primary btn-lg">Prenota subito</a></p>
           	</div>
-          </div>
+
         </div>
         
 		<?php $i++;
