@@ -51,12 +51,22 @@ class AccommodationForm {
                     'desc' => __( '', 'cmb' ),
                     'id'   => $this->prefix . 'address',
                     'type' => 'text_medium',
+                    'class'=> 'pippo'
                 ),
                 array(
 				    'name' => 'Your Email',
 				    'id'   => $prefix . 'email',
 				    'type' => 'text_email',
 				),
+				
+				array(
+				    'name' => 'Image',
+				    'desc' => 'Upload an image or enter an URL.',
+				    'id' => $prefix . 'test_image',
+				    'type' => 'file',
+				    'allow' => array( 'url', 'attachment' ) // limit to just attachments with array( 'attachment' )
+				),
+								
  
                 array(
                     'name' => 'Describe your place',
@@ -64,28 +74,8 @@ class AccommodationForm {
                     'default' => 'standard value (optional)',
                     'id' => $prefix . 'place_notes',
                     'type' => 'textarea_small'
-                ),
-                
-				/*
-                array(
-                    'name' => __( 'Image', 'cmb' ),
-                    'desc' => __( 'Upload an image or enter a URL.', 'cmb' ),
-                    'id'   => $this->prefix . 'memorial_image',
-                    'type' => 'file',
-                ),
-				*/
-               
-                /*
-                array(
-                    'name'    => __( 'Message', 'cmb' ),
-                    'id'      => $this->prefix . 'memorial_story',
-                    'type'    => 'wysiwyg',
-                    'options' => array(
-                        'media_buttons' => false,
-                        'wpautop'       => true
-                    )
-                ),
-                */
+                )
+
             )
         );
 
@@ -99,7 +89,7 @@ class AccommodationForm {
     public function do_frontend_form() {
 
         // Default metabox ID
-        $metabox_id = 'requests_metabox';
+        $metabox_id = 'accommodations_metabox';
 
         // Get all metaboxes
         $meta_boxes = apply_filters( 'cmb_meta_boxes', array() );
@@ -146,13 +136,13 @@ class AccommodationForm {
         }
 
         // Setup and sanitize data
-        if ( isset( $_POST[ $this->prefix . 'request_first_name' ] ) ) {
+        if ( isset( $_POST[ $this->prefix . 'place_name' ] ) ) {
             $this->new_submission = wp_insert_post( array(
-                'post_title'            => sanitize_text_field( $_POST[ $this->prefix . 'request_first_name' ] . ' ' . $_POST[ $this->prefix . 'request_last_name' ] ),
+                'post_title'            => sanitize_text_field( $_POST[ $this->prefix . 'place_name' ] . ' ' . $_POST[ $this->prefix . 'place_name' ] ),
                 'post_author'           => get_current_user_id(),
                 'post_status'           => 'draft', // Set to draft so we can review first
-                'post_type'             => 'request',
-                'post_content_filtered' => wp_kses( $_POST[ $this->prefix . 'memorial_story' ], '<b><strong><i><em><h1><h2><h3><h4><h5><h6><pre><code><span>' ),
+                'post_type'             => 'accommodations',
+                'post_content_filtered' => wp_kses( $_POST[ $this->prefix . 'place_notes' ], '<b><strong><i><em><h1><h2><h3><h4><h5><h6><pre><code><span>' ),
             ), true );
 
             // If no errors, save the data into a new post draft

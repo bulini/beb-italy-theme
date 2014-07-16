@@ -2,7 +2,7 @@
 //update_option('siteurl','http://testing.dev/wpsendit_227');
 //update_option('home','http://testing.dev/wpsendit_227');
 
-include('libs/metaboxes/my-metabox.php');
+include('libs/metaboxes/accommodation.php');
 
 include('libs/theme-customization.php');
 include('libs/theme-init.php');
