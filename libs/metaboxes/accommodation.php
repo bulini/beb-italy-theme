@@ -53,6 +53,31 @@ class AccommodationForm {
                     'type' => 'text_medium',
                     'class'=> 'pippo'
                 ),
+
+                array(
+                    'name' => __( 'Lat', 'cmb' ),
+                    'desc' => __( '', 'cmb' ),
+                    'id'   => $this->prefix . 'lat',
+                    'type' => 'text_small',
+                    'class'=> 'pippo'
+                ),
+
+                array(
+                    'name' => __( 'Long', 'cmb' ),
+                    'desc' => __( '', 'cmb' ),
+                    'id'   => $this->prefix . 'lng',
+                    'type' => 'text_small',
+                    'class'=> 'pippo'
+                ),
+
+                array(
+                    'name' => __( 'Formatted Address', 'cmb' ),
+                    'desc' => __( '', 'cmb' ),
+                    'id'   => $this->prefix . 'formatted_address',
+                    'type' => 'text_medium',
+                    'class'=> 'pippo'
+                ),
+
                 array(
 				    'name' => 'Your Email',
 				    'id'   => $prefix . 'email',

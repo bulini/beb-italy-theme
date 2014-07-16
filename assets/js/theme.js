@@ -48,7 +48,7 @@ jQuery(document).ready(function(){
 
 
       jQuery(function(){
-        jQuery("#geocomplete").geocomplete({
+        jQuery("#address").geocomplete({
           map: ".map_canvas",
           details: "form ",
           markerOptions: {
@@ -56,7 +56,7 @@ jQuery(document).ready(function(){
           }
         });
         
-        jQuery("#geocomplete").bind("geocode:dragged", function(event, latLng){
+        jQuery("#address").bind("geocode:dragged", function(event, latLng){
           jQuery("input[name=lat]").val(latLng.lat());
           jQuery("input[name=lng]").val(latLng.lng());
           jQuery("#reset").show();
@@ -64,12 +64,12 @@ jQuery(document).ready(function(){
         
         
         jQuery("#reset").click(function(){
-          jQuery("#geocomplete").geocomplete("resetMarker");
+          jQuery("#address").geocomplete("resetMarker");
           jQuery("#reset").hide();
           return false;
         });
         
         jQuery("#find").click(function(){
-          jQuery("#geocomplete").trigger("geocode");
+          jQuery("#address").trigger("geocode");
         }).click();
       });

@@ -35,16 +35,9 @@ get_header();
 		</div>
 	 </div>
 	 <div id="sidemap" class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-	 	<h1>Stocazzo</h1>
-	 	<label>Latitude</label>
-			<input name="lat" type="text" value="">
-			<label>Longitude</label>
-			<input name="lng" type="text" value="">
-			<label>Formatted Address</label>
-			<input name="formatted_address" type="text" value="">
-		</fieldset>
-	 	
-	 	
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<h1 class="page-title">Anteprima mappa</h1>
+				</div>
 	 	<div class="map_canvas" style="height:400px;width:100%; margin: 10px 20px 10px 0; border:1px solid #ccc;"></div>
 	 	<a id="reset" href="#" style="display:none;">Reset Marker</a>
 	 </div>
