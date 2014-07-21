@@ -25,7 +25,7 @@
 
 <div class="container">
 
-		<hr>
+
       <!-- Three columns of text below the carousel -->
       <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 text-center">
@@ -77,3 +77,4 @@
 	
 		
       </div><!-- /.row -->
+</div>

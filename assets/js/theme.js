@@ -1,3 +1,6 @@
+jQuery('.input').addClass('form-control');
+jQuery('.button-primary').addClass('btn btn-success btn-block');
+
 jQuery(window).load(function(){
    jQuery('.flexslider').flexslider({
       animation: "fade",
