@@ -1,12 +1,7 @@
 jQuery('.input').addClass('form-control');
 jQuery('.cmb_text_medium').addClass('form-control');
 jQuery('.cmb_text_medium').addClass('form-control');
-jQuery('.cmb_textarea_small').addClass('form-control')
-
-//jQuery('.cmb_id_lat').addClass('hidden');
-
-//jQuery('.cmb_id_lng').addClass('hidden');
-
+jQuery('.cmb_textarea_small').addClass('form-control');
 jQuery('.button-primary').addClass('btn btn-success');
 jQuery('.button').addClass('btn btn-success');
 
@@ -34,13 +29,13 @@ jQuery(document).ready(function(){
 	lng_field = jQuery('#map').attr("data-lng");
 
 	//alert(address_field);
-			var jQuerymap = jQuery('#map');
+			var $map = jQuery('#map');
 			google.maps.event.addDomListener(window, 'resize', function() {
 				map.setCenter(homeLatlng);
 			});
-			if( jQuerymap.length ) {
+			if( $map.length ) {
 	
-				jQuerymap.gMap({
+				$map.gMap({
 					address: address_field,
 					zoom: 14,
 					markers: [

@@ -20,7 +20,7 @@ class AccommodationForm {
         add_filter( 'cmb_meta_boxes', array( $this, 'cmb_metaboxes' ) );
         add_shortcode( 'cmb-form', array( $this, 'do_frontend_form' ) );
         add_action( 'init', array( $this, 'initialize_cmb_meta_boxes' ), 9 );
-        add_action( 'cmb_save_post_fields', array( $this, 'save_featured_image' ), 10, 4 );
+		add_action( 'cmb_save_post_fields', array( $this, 'save_featured_image' ), 10, 4 );
     }
 
 
@@ -87,7 +87,7 @@ class AccommodationForm {
 				array(
 				    'name' => 'Image',
 				    'desc' => 'Upload an image or enter an URL.',
-				    'id' => $prefix . 'test_image',
+				    'id' => $prefix . 'place_image',
 				    'type' => 'file',
 				    'allow' => array( 'url', 'attachment' ) // limit to just attachments with array( 'attachment' )
 				),
@@ -163,11 +163,11 @@ class AccommodationForm {
         // Setup and sanitize data
         if ( isset( $_POST[ $this->prefix . 'place_name' ] ) ) {
             $this->new_submission = wp_insert_post( array(
-                'post_title'            => sanitize_text_field( $_POST[ $this->prefix . 'place_name' ] . ' ' . $_POST[ $this->prefix . 'place_name' ] ),
+                'post_title'            => sanitize_text_field( $_POST[ $this->prefix . 'place_name' ]),
                 'post_author'           => get_current_user_id(),
                 'post_status'           => 'draft', // Set to draft so we can review first
                 'post_type'             => 'accommodations',
-                'post_content_filtered' => wp_kses( $_POST[ $this->prefix . 'place_notes' ], '<b><strong><i><em><h1><h2><h3><h4><h5><h6><pre><code><span>' ),
+                'post_content' => wp_kses( $_POST[ $this->prefix . 'place_notes' ], '<b><strong><i><em><h1><h2><h3><h4><h5><h6><pre><code><span>' ),
             ), true );
 			
 		
@@ -186,7 +186,9 @@ class AccommodationForm {
 			update_post_meta( $this->new_submission, 'lat', $lat );
 			update_post_meta( $this->new_submission, 'lng', $lng );
 			update_post_meta( $this->new_submission, 'formatted_address', $formatted_address );	
+			update_post_meta( $this->new_submission, 'place_image_id', $_POST['place_image_id'] );	
 
+			set_post_thumbnail( $this->new_submission, get_post_meta( $this->new_submission, 'place_image_id', 1 ) );
             return $this->new_submission;
 
 
@@ -199,16 +201,31 @@ class AccommodationForm {
 
 
     /**
+     * Grant temporary permissions to subscribers.
+     */
+    public function grant_publish_caps( $caps, $cap, $args ) {
+
+        if ( 'edit_post'  == $args[0] ) {
+            $caps[$cap[0]] = true;
+        }
+
+        return $caps;
+    }
+
+
+
+
+
+   /**
      * Save featured image.
      */
     public function save_featured_image( $object_id, $meta_box_id, $updated, $meta_box ) {
 
-        if ( isset( $updated ) && in_array( '_example_memorial_image', $updated ) ) {
-            set_post_thumbnail( $object_id, get_post_meta( $object_id, '_example_memorial_image_id', 1 ) );
-        }
+       // if ( isset( $updated ) && in_array( 'place_image', $updated ) ) {
+            set_post_thumbnail( $object_id, get_post_meta( $object_id, 'place_image_id', 1 ) );
+       // }
 
     }
-
 
     /**
      * Initialize CMB.

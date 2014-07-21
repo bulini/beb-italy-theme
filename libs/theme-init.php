@@ -312,9 +312,10 @@ if ( !function_exists('fb_AddThumbColumn') && function_exists('add_theme_support
 		wp_enqueue_script( 'easing', get_template_directory_uri() . '/assets/js/jquery.easing.js', array(), '1.0.0', true );
 		wp_enqueue_script( 'mousewheel', get_template_directory_uri() . '/assets/js/jquery.mousewheel.js', array(), '1.0.0', true );
 		wp_enqueue_script( 'flexslider', get_template_directory_uri() . '/assets/js/jquery.flexslider-min.js', array(), '1.0.0', true );
+		wp_enqueue_script( 'googlemaps-frontend', 'http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places', array(), '1.0.0', true );
+
 		wp_enqueue_script( 'gmaps', get_template_directory_uri() . '/assets/js/jquery.gmap.js', array(), '1.0.0', true );
 		
-		wp_enqueue_script( 'googlemaps-frontend', 'http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places', array(), '1.0.0', true );
 		wp_enqueue_script( 'geocomplete-frontend', get_template_directory_uri() . '/assets/js/jquery.geocomplete.min.js', array(), '1.0.0', true );
 		wp_enqueue_script( 'custom', get_template_directory_uri() . '/assets/js/theme.js', array(), '1.0.0', true );
 

@@ -15,7 +15,6 @@ $options=load_theme_options();
     <!-- Bootstrap core CSS -->
 	<?php wp_head(); ?>
 	<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
-	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
 
 </head>
 
