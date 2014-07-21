@@ -12,7 +12,7 @@ get_header();
 	
 	
 	<!-- Teasers right side wrapper col-->
-		<div class="col-xs-12 col-sm-12 col-md-7 col-lg-6" >
+		<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7" >
 			<div class="row margin-top-10">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					<h1 class="page-title"><?php the_title(); ?></h1>
@@ -25,7 +25,32 @@ get_header();
 				<!-- ITEM-->		
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-10 col-lg-12">
-							<?php the_content(); ?>
+						<?php
+						if ( is_user_logged_in() ) { ?>
+							
+						<?php the_content(); ?>
+							
+						<?php } else {
+						$args = array(
+					        'echo'           => true,
+					        'redirect'       => get_permalink( $post->ID), 
+					        'form_id'        => 'loginform',
+					        'label_username' => __( 'Username' ),
+					        'label_password' => __( 'Password' ),
+					        'label_remember' => __( 'Remember Me' ),
+					        'label_log_in'   => __( 'Log In' ),
+					        'id_username'    => 'user_login',
+					        'id_password'    => 'user_pass',
+					        'id_remember'    => 'rememberme',
+					        'id_submit'      => 'wp-submit',
+					        'remember'       => true,
+					        'value_username' => NULL,
+					        'value_remember' => false);
+											
+							wp_login_form($args); 						
+							}
+						?>
+						
 						</div>
 
 					</div>		
@@ -35,11 +60,12 @@ get_header();
 		</div>
 	 </div>
 	 <div id="sidemap" class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<h1 class="page-title">Anteprima mappa</h1>
-				</div>
+	 <h1>Ciaone</h1>
+	 <div class="panel">
 	 	<div class="map_canvas" style="height:400px;width:100%; margin: 10px 20px 10px 0; border:1px solid #ccc;"></div>
-	 	<a id="reset" href="#" style="display:none;">Reset Marker</a>
+	 	<a id="reset" href="#" style="display:none;">Reset Marker</a>	 	
+	 </div>
+
 	 </div>
 	<!-- /Main blog .container -->
     <!-- Marketing messaging and featurettes

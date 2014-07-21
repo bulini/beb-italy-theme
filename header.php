@@ -61,6 +61,9 @@ $options=load_theme_options();
 					
 					
 		<ul class="nav navbar-nav navbar-right">
+		
+		<li><a href="#" title=""><i class="icon-user"></i> Pannello di controllo</a></li>
+		
 		<li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-share"></i></a>
 			<ul class="dropdown-menu" style="min-width:40px;">
