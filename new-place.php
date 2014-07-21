@@ -12,7 +12,7 @@ get_header();
 		<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7" >
 			<div class="row margin-top-10">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<h1 class="page-title"><?php the_title(); ?></h1>
+					<h2 class="page-title"><?php the_title(); ?></h2>
 				</div>
 
 				<hr class="hr-sm">
@@ -54,8 +54,8 @@ get_header();
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
 			<div class="row margin-top-10">
 				<div class="col-xs-12 col-sm-12 col-md-offset-4 col-md-4 col-lg-4 col-lg-offset-4">
-					<h1 class="page-title"><?php the_title(); ?></h1>
-					<p class="lead">Per pubblicare ti devi loggare o registrare se no ntoculu</p>
+					<h2 class="page-title text-center"><?php the_title(); ?></h2>
+					<p class="lead text-center">Per pubblicare una struttura &egrave; necessario avere un account.</p>
 				
 					<?php $args = array(
 					        'echo'           => true,

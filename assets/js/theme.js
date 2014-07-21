@@ -1,5 +1,15 @@
 jQuery('.input').addClass('form-control');
-jQuery('.button-primary').addClass('btn btn-success btn-block');
+jQuery('.cmb_text_medium').addClass('form-control');
+jQuery('.cmb_text_medium').addClass('form-control');
+jQuery('.cmb_textarea_small').addClass('form-control')
+
+//jQuery('.cmb_id_lat').addClass('hidden');
+
+//jQuery('.cmb_id_lng').addClass('hidden');
+
+jQuery('.button-primary').addClass('btn btn-success');
+jQuery('.button').addClass('btn btn-success');
+
 
 jQuery(window).load(function(){
    jQuery('.flexslider').flexslider({

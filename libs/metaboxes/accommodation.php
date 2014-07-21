@@ -169,11 +169,25 @@ class AccommodationForm {
                 'post_type'             => 'accommodations',
                 'post_content_filtered' => wp_kses( $_POST[ $this->prefix . 'place_notes' ], '<b><strong><i><em><h1><h2><h3><h4><h5><h6><pre><code><span>' ),
             ), true );
-
+			
+		
+			
+			
             // If no errors, save the data into a new post draft
             if ( ! is_wp_error( $this->new_submission ) ) {
-                return $this->new_submission;
 
+			$address = sanitize_text_field( $_POST['address'] );
+			$lat = sanitize_text_field( $_POST['lat'] );
+			$lng = sanitize_text_field( $_POST['lng'] );
+			$formatted_address = sanitize_text_field( $_POST['formatted_address'] );
+
+			// Update the meta field in the database.
+			update_post_meta( $this->new_submission, 'address', $address );
+			update_post_meta( $this->new_submission, 'lat', $lat );
+			update_post_meta( $this->new_submission, 'lng', $lng );
+			update_post_meta( $this->new_submission, 'formatted_address', $formatted_address );	
+
+            return $this->new_submission;
 
 
             }
