@@ -187,7 +187,13 @@ class AccommodationForm {
 			update_post_meta( $this->new_submission, 'lng', $lng );
 			update_post_meta( $this->new_submission, 'formatted_address', $formatted_address );	
 			update_post_meta( $this->new_submission, 'place_image_id', $_POST['place_image_id'] );	
-
+			//update post parent in place_image_id
+			$image = array(
+		      'ID'           => get_post_meta( $this->new_submission, 'place_image_id', 1 ),
+		      'post_parent' => $this->new_submission
+			  );
+			wp_update_post( $image );
+			
 			set_post_thumbnail( $this->new_submission, get_post_meta( $this->new_submission, 'place_image_id', 1 ) );
             return $this->new_submission;
 
