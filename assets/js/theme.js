@@ -2,6 +2,7 @@ jQuery('.input').addClass('form-control');
 jQuery('.cmb_text_medium').addClass('form-control');
 jQuery('.cmb_text_medium').addClass('form-control');
 jQuery('.cmb_textarea_small').addClass('form-control');
+jQuery('.cmb_select').addClass('form-control');
 jQuery('.button-primary').addClass('btn btn-success');
 jQuery('.button').addClass('btn btn-success');
 

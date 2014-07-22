@@ -41,13 +41,21 @@ class AccommodationForm {
             'show_names' => true, // Show field names on the left
             'fields'     => array(
                 array(
-                    'name' => __( 'Place Name', 'cmb' ),
+                    'name' => __( 'Nome struttura', 'cmb' ),
                     'desc' => __( '', 'cmb' ),
                     'id'   => $this->prefix . 'place_name',
                     'type' => 'text_medium',
                 ),
                 array(
-                    'name' => __( 'Address', 'cmb' ),
+				    'name' => 'Tipologia',
+				    'desc' => '',
+				    'id' => $prefix . 'type',
+				    'taxonomy' => 'types', //Enter Taxonomy Slug
+				    'type' => 'taxonomy_select',    
+				),
+                
+                array(
+                    'name' => __( 'Indirizzo', 'cmb' ),
                     'desc' => __( '', 'cmb' ),
                     'id'   => $this->prefix . 'address',
                     'type' => 'text_medium',
@@ -78,15 +86,9 @@ class AccommodationForm {
                     'class'=> 'pippo'
                 ),
 
-                array(
-				    'name' => 'Your Email',
-				    'id'   => $prefix . 'email',
-				    'type' => 'text_email',
-				),
-				
 				array(
-				    'name' => 'Image',
-				    'desc' => 'Upload an image or enter an URL.',
+				    'name' => 'Immagine',
+				    'desc' => '',
 				    'id' => $prefix . 'place_image',
 				    'type' => 'file',
 				    'allow' => array( 'url', 'attachment' ) // limit to just attachments with array( 'attachment' )

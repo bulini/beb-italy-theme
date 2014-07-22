@@ -36,7 +36,7 @@ get_header();
 		</div>
 	 </div>
 	 <div id="sidemap" class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-	 <h1>Ciaone</h1>
+					<h2 class="page-title">Anteprima</h2>
 	 <div class="panel">
 	 	<div class="map_canvas" style="height:400px;width:100%; margin: 10px 20px 10px 0; border:1px solid #ccc;"></div>
 	 	<a id="reset" href="#" style="display:none;">Reset Marker</a>	 	
@@ -74,7 +74,7 @@ get_header();
 					        'value_remember' => false);
 											
 							wp_login_form($args); 						
-							}
+
 						?>
 						Don't you have an account? <a href="<?php echo wp_registration_url(); ?>" title="Register">Register here</a>
 
@@ -88,7 +88,7 @@ get_header();
 
 	
 	
-
+<?php } ?>
 
 
 
