@@ -8,6 +8,16 @@ include('libs/theme-customization.php');
 include('libs/theme-init.php');
 
 
+function get_topmost_parent($post_id){
+  $parent_id = get_post($post_id)->post_parent;
+  if($parent_id == 0){
+    return $post_id;
+  }else{
+    return get_topmost_parent($parent_id);
+  }
+}
+
+
 
 
 function myplugin_add_meta_box() {

@@ -86,6 +86,24 @@ class AccommodationForm {
                     'class'=> 'pippo'
                 ),
 
+                array(
+                    'name' => __( 'country', 'cmb' ),
+                    'desc' => __( '', 'cmb' ),
+                    'id'   => $this->prefix . 'country',
+                    'type' => 'text_small',
+                    'class'=> 'pippo'
+                ),
+
+                array(
+                    'name' => __( 'locality', 'cmb' ),
+                    'desc' => __( '', 'cmb' ),
+                    'id'   => $this->prefix . 'locality',
+                    'type' => 'text_small',
+                    'class'=> 'pippo'
+                ),
+
+
+
 				array(
 				    'name' => 'Immagine',
 				    'desc' => '',
