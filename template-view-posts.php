@@ -17,18 +17,26 @@ global $paged;
 		<?php get_template_part('inc/breadcrumb-owner'); ?>
 	</div>
 	  
-  <div class="row">
-	 <div class="twelve columns">
+<div class="row">
+  <div class="col-md-2">
+  	<h3>Istruzioni</h3>
+  	<ul>
+	  	<li>Prova</li>
+	  	<li>Prova</li>
+	  	<li>Prova</li>
+	  	<li>Prova</li>
+  	</ul>
+  </div>
+	 <div class="col-md-10">
 <h3 class="subheader">Gestione strutture</h3>
 <p>Visualizza 
 <a href="#" id="only_published">Solo approvate</a> | <a href="#" id="only_pending">Da approvare</a>
 </p>
-		<table class="table table-striped">
+		<table class="table table-bordered">
 			<thead>
 			<tr>
 				<th></th>
 				<th>Nome</th>
-				<th>Status</th>
 				<th colspan="4">Azioni</th>
 
 			</tr>
@@ -67,11 +75,7 @@ global $paged;
 			?>
 			<tr class="row_<?php echo get_post_status( get_the_ID() ) ?>">
 				<td><?php the_post_thumbnail('thumbnail',$attr); ?></td>
-				<td><b><a href="<?php echo get_permalink(get_the_ID()); ?>"><?php echo get_the_title(); ?></a></b></td>
-				<td><div class="alert-box <?php echo get_post_status( get_the_ID() ) ?>"><?php echo get_post_status( get_the_ID() ) ?></div></td>
-				
-				
-
+				<td><b><a href="<?php echo get_permalink(get_the_ID()); ?>"><?php echo get_the_title(); ?></a> (<?php echo get_post_status( get_the_ID() ) ?>)</b></td>
 				<td><a class="button small" href="<?php bloginfo('siteurl'); ?>/edit-property-services/?prop_id=<?php echo get_the_ID(); ?>">Modifica dati</a></td>
 				<td><a class="button small" href="<?php bloginfo('siteurl'); ?>/edit-gallery-property/?prop_id=<?php echo get_the_ID(); ?>">Gestione fotografie</a></td>
 				<td><a class="button small" href="<?php bloginfo('siteurl'); ?>/edit-property-allottments/?prop_id=<?php echo get_the_ID(); ?>">Camere - Alloggi</a></td>
@@ -81,6 +85,13 @@ global $paged;
 				</td>
 			
 				
+			</tr>
+			<tr class="row_<?php echo get_post_status( get_the_ID() ) ?>">
+				<td colspan="7">			
+<?php if(has_properties(get_the_ID())<1): ?><div class="alert alert-warning" role="alert">Attenzione!<br />Aggiungi subito almeno una camera altrimenti la tua struttura non verr&agrave; visualizzata!<?php endif; ?></div></td>
+			</tr>
+			<tr class="row_<?php echo get_post_status( get_the_ID() ) ?>">
+			<td colspan="7"><?php get_properties(get_the_ID()); ?></td>
 			</tr>
 
 

@@ -17,6 +17,169 @@ function get_topmost_parent($post_id){
   }
 }
 
+/* Accommodations stuff */
+
+function has_properties($id)
+{
+	$properties=get_posts('post_type=properties&post_parent='.$id);
+	return count($properties);
+}
+
+function get_properties($id)
+{
+	$properties=get_posts('post_type=properties&post_parent='.$id);
+	//print_r($properties);
+	$i=0;
+	if($properties) {  ?>
+	<table style="width:100%;">
+		<thead>
+			<tr>
+				<th>Sistemazioni</th><th>Posti letto</th><th>Bambini</th><th>Quantit&agrave;</th><th></th>
+			</tr>
+		</thead>
+		<tbody>
+<?php
+	foreach($properties as $property):
+		$max_pax=get_post_meta($property->ID, 'bookandpay_maxpeople', true);
+		$max_children=get_post_meta($property->ID, 'bookandpay_maxchildren', true);
+
+		$allottments=get_post_meta($property->ID, 'bookandpay_allottments', true);
+		$i++;
+
+?>
+ <tr>
+          <td>
+           	<?php echo $property->post_title; ?>
+          </td>
+          <td>
+           	<?php echo $max_pax; ?>
+          </td>
+          <td>
+           	<?php echo $max_children; ?>
+          </td>
+          <td>
+           	<?php echo $allottments; ?>
+          </td>
+          <td>
+           <i class="general foundicon-calendar"><span class="has-tip" data-width="210" title="Da qui puoi impostare la disponibilit&agrave; periodica della stanza"> <a href="<?php bloginfo('siteurl');?>/owner-panel/edit-availability-property/?prop_id=<?php echo $property->ID ?>">disponibilit&agrave;</a></i> 
+            | <a href="<?php bloginfo('siteurl');?>/owner-panel/edit-prices/?prop_id=<?php echo $property->ID ?>">prezzi</a></span>
+            | <?php 
+	            
+	            
+		            echo '<a href="';
+		            echo wp_nonce_url("$url/wp-admin/post.php?post=$property->ID&action=delete", 'delete-post_' . $property->ID);
+		            echo '">Elimina</a>';
+		      
+            ?>
+          </td>
+
+ </tr>
+<?php endforeach; ?>
+</tbody>
+</table>
+<?php 
+	}
+}
+
+
+
+
+
+
+function get_property($id)
+{
+	$property=get_post($id);
+	if($property) { 
+		$max_pax=get_post_meta($property->ID, 'bookandpay_maxpeople', true);
+		$max_children=get_post_meta($property->ID, 'bookandpay_maxchildren', true);
+		$allottments=get_post_meta($property->ID, 'bookandpay_allottments', true);
+
+?>
+		<thead>
+			<tr>
+				<th>Sistemazioni</th><th>Posti letto</th><th>Bambini</th><th>Quantit&agrave;</th><th></th>
+			</tr>
+		</thead>
+	<tr>
+		<td>
+           	<?php echo $property->post_title; ?>
+          </td>
+          <td>
+           	<?php echo $max_pax; ?>
+          </td>
+          <td>
+           	<?php echo $max_children; ?>
+          </td>
+          <td>
+           	<?php echo $allottments; ?>
+          </td>
+          <td>
+           <i class="general foundicon-calendar"><span class="has-tip" data-width="210" title="Da qui puoi impostare la disponibilit&agrave; periodica della stanza"> <a href="edit-availability/?prop_id=<?php echo $property->ID ?>">disponibilit&agrave;</a></i> 
+            | <a href="edit-prices/?prop_id=<?php echo $property->ID ?>">prezzi</a></span>
+          </td>
+
+ </tr>
+
+<?php 
+	}
+	
+}
+
+
+/*frontend single post room */
+
+function get_rooms($id)
+{
+	$properties=get_posts('post_type=properties&post_parent='.$id);
+	//print_r($properties);
+	$i=0;
+	?>
+	<table style="width:100%;">
+		<thead>
+			<tr>
+				<th>Camera</th>
+				<th>Posti</th>
+				<th>Prezzo</th>
+			</tr>
+		</thead>
+		<tbody>
+	<?php
+
+	foreach($properties as $property):
+		$max_pax=get_post_meta($property->ID, 'bookandpay_maxpeople', true);
+		$allottments=get_post_meta($property->ID, 'bookandpay_allottments', true);
+		$i++;
+
+?>
+ <tr>
+          <td>
+           	<?php echo $property->post_title; ?>
+          </td>
+          <td>
+           	<?php echo $max_pax; ?>
+          </td>
+          <td>
+	      	&euro;<?php echo room_lowest_price($property->ID); ?> 
+	      </td>
+
+ </tr>
+<?php endforeach; ?>
+		</tbody>
+	</table>
+<?php }
+
+function room_exists($name,$parent)
+{
+	global $wpdb;
+	return $wpdb->get_row("SELECT * FROM wp_posts WHERE post_parent = '" . $parent . "' AND post_title = '" . $title_str . "'", 'ARRAY_A');
+}
+
+
+
+/* end accommodations */
+
+
+
 
 
 
