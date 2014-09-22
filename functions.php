@@ -19,6 +19,99 @@ function get_topmost_parent($post_id){
 
 /* Accommodations stuff */
 
+function test_ajax()
+{
+	$serialized=explode('&',$_POST['data']);
+	
+	foreach($serialized as $k=>$v):
+		$property[$k]=$v;
+	endforeach;
+	
+	//variabili x inserimento ROOM
+	$room_title=$property[0];
+	$room_title=explode('=',$property[0]);
+	$room_title=$room_title[1];
+	//posti
+	$room_maxpax=$property[1];
+	$room_maxpax=explode('=',$property[1]);
+	$room_maxpax=$room_maxpax[1];
+
+	//BAMBINI DI DIO........
+	
+
+	$room_maxchildren=$property[2];
+	$room_maxchildren=explode('=',$property[2]);
+	$room_maxchildren=$room_maxchildren[1];
+
+
+
+	$room_allottments=$property[3];
+	$room_allottments=explode('=',$property[3]);
+	$room_allottments=$room_allottments[1];
+	
+	$room_parent=$property[4];
+	$room_parent=explode('=',$property[4]);
+	$room_parent=$room_parent[1];
+
+	$room_booking=$property[5];
+	$room_booking=explode('=',$property[5]);
+	$room_booking=$room_booking[1];
+
+	
+	//titolo stanza composto da nome hotel + stanza x evitare duplicati...
+	$main_name=get_the_title($room_parent);
+	
+			// ADD THE FORM INPUT TO $new_post ARRAY
+		$room_title=esc_attr(strip_tags($room_title));
+		
+		$new_room = array(
+		'post_title'	=>	$main_name.' - '.$room_title,
+		'post_author'	=>	$user_id,
+		'post_parent'	=>	$room_parent,
+		'post_status'	=>	'publish',           // Choose: publish, preview, future, draft, etc.
+		'post_type'	=>	'properties'  //'post',page' or use a custom post type if you want to
+		);
+	
+		//SAVE THE POST
+		
+		$rid = wp_insert_post($new_room);
+		
+		update_post_meta($rid, 'bookandpay_maxpeople', $room_maxpax);
+		update_post_meta($rid, 'bookandpay_maxchildren', $room_maxchildren);
+
+		update_post_meta($rid, 'bookandpay_allottments', $room_allottments);
+		update_post_meta($rid, 'bookandpay_instant_booking', $room_booking);
+		update_post_meta($rid, 'bookandpay_instant_booking', $room_booking);
+		//da dinamicizzare per altri siti
+		update_post_meta($rid, 'bookandpay_price_rule', 'price_for_property');
+		update_post_meta($rid, 'bookandpay_enabled', 'on');
+
+
+								
+		//esco l ultima riga inserita
+		get_property($rid);
+}
+
+
+
+add_action('wp_ajax_test_ajax', 'test_ajax');
+add_action('wp_ajax_nopriv_test_ajax', 'test_ajax');
+
+add_action('wp_head','ajaxurl');
+
+function ajaxurl() {
+?>
+<script type="text/javascript">
+var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+</script>
+<?php
+}
+
+
+
+
+
+
 function has_properties($id)
 {
 	$properties=get_posts('post_type=properties&post_parent='.$id);
@@ -31,7 +124,7 @@ function get_properties($id)
 	//print_r($properties);
 	$i=0;
 	if($properties) {  ?>
-	<table style="width:100%;">
+	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>Sistemazioni</th><th>Posti letto</th><th>Bambini</th><th>Quantit&agrave;</th><th></th>
@@ -95,11 +188,6 @@ function get_property($id)
 		$allottments=get_post_meta($property->ID, 'bookandpay_allottments', true);
 
 ?>
-		<thead>
-			<tr>
-				<th>Sistemazioni</th><th>Posti letto</th><th>Bambini</th><th>Quantit&agrave;</th><th></th>
-			</tr>
-		</thead>
 	<tr>
 		<td>
            	<?php echo $property->post_title; ?>
@@ -173,6 +261,148 @@ function room_exists($name,$parent)
 	global $wpdb;
 	return $wpdb->get_row("SELECT * FROM wp_posts WHERE post_parent = '" . $parent . "' AND post_title = '" . $title_str . "'", 'ARRAY_A');
 }
+
+
+class MyCalendar
+{
+    // helper function to find the number of weeks in a  month
+   // you'll need this in the HTML loop that will be shown after the code
+    function num_weeks($month, $year)
+    {
+        $num_weeks=4;
+    
+        $first_day = $this->first_day($month, $year);  
+        
+        // if the first week doesn't start on monday 
+        // we are sure that the month has at minimum 5 weeks
+        if($first_day!=1) $num_weeks++;
+        
+        $widows=$first_day-1;  
+        $fw_days=7-$widows;
+        if($fw_days==7) $fw_days=0;       
+        
+        $numdays=date("t",mktime(2, 0, 0, $month, 1, $year));
+        
+        if( ($numdays - $fw_days) > 28 ) $num_weeks++;
+        
+        return $num_weeks;                  
+    }
+    
+    // this method returns array with the days 
+    // in a given week. Always starts from Monday and return 7 numbers
+    // if the day is there, returns the date, otherwise returns zero
+    // very useful to build the empty cells of the calendar
+    function days($month, $year, $week, $num_weeks=0)
+    {
+        $days=array();
+        
+        if($num_weeks==0) $num_weeks=$this->num_weeks($month, $year);
+        
+        // find which day of the week is 1st of the given month        
+        $first_day = $this->first_day($month, $year);
+                
+        // find widow days (first week)
+        $widows=$first_day-1;
+        
+        // first week days
+        $fw_days=7-$widows;
+        
+        // if $week==1 don't do further calculations
+        if($week==1)
+        {
+            for($i=0;$i<$widows;$i++) $days[]=0;            
+            for($i=1;$i<=$fw_days;$i++) $days[]=$i;            
+            return $days;
+        }
+        
+        // any other week
+        if($week!=$num_weeks)
+        {
+            $first=$fw_days+(($week-2)*7);
+            for($i=$first+1;$i<=$first+7;$i++) $days[]=$i;            
+            return $days;
+        }
+        
+        
+        # only last week calculations below
+        
+        // number of days in the month
+        $numdays=date("t",mktime(2, 0, 0, $month, 1, $year));
+                
+        // find orphan days (last week)  
+        $orphans=$numdays-$fw_days-(($num_weeks-2)*7);                     
+        $empty=7-$orphans;
+        for($i=($numdays-$orphans)+1;$i<=$numdays;$i++) $days[]=$i;
+        for($i=0;$i<$empty;$i++) $days[]=0;
+        return $days;
+    }
+    
+   // finds which day of the week is the first day of the month
+    function first_day($month, $year)
+    {
+        $first_day= date("w", mktime(2, 0, 0, $month, 1, $year));
+        if($first_day==0) $first_day=7; # convert Sunday
+        
+        return $first_day;
+    }
+}
+
+	function stars($post_id='')
+	{
+		global $post;		
+		
+		if($post_id!='')
+		{
+			$post_id=$post_id;	
+		} else {
+			$post_id=$post->ID;	
+		
+		}
+
+		$stars_array = wp_get_post_terms($post_id, 'stars', array("fields" => "names"));
+		$stars=$stars_array[0];
+		
+		if((int) $stars>0):
+			for($i=1;$i<=(int)$stars;$i++){
+				echo '&#9733; ';
+			}
+		endif;		
+	}
+
+	function get_stars($post_id='')
+	{
+		global $post;		
+		
+		if($post_id!='')
+		{
+			$post_id=$post_id;	
+		} else {
+			$post_id=$post->ID;	
+		
+		}
+
+		$stars_array = wp_get_post_terms($post_id, 'stars', array("fields" => "names"));
+		$stars=$stars_array[0];
+		$markup='';
+		if((int) $stars>0):
+			for($i=1;$i<=(int)$stars;$i++){
+				$markup.= '&#9733; ';
+			}
+			return $markup;
+		endif;		
+	}
+
+
+
+	function room_lowest_price($id)
+	{
+		global $wpdb;
+		$price_row=$wpdb->get_row("SELECT * FROM wp_property_prices WHERE post_id = $id and from_date >= DATE(CURDATE()) order by adult_price desc limit 0,1");
+		$price=$price_row->adult_price;
+		return $price;
+	}
+
+
 
 
 

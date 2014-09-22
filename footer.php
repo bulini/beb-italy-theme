@@ -40,6 +40,26 @@
 
 	
   <!-- INIT SCRIPT - show gMap onclick -->
+<?php if(is_page('edit-property-allottments')): ?>
+<script type="text/javascript">
+
+
+
+      jQuery('#addcamere').click(function() {
+
+
+       	jQuery.post(ajaxurl, { action: 'test_ajax', data:jQuery("#room_form").serialize() }, function(output) {
+	       jQuery('#wait_room').hide();
+
+	       jQuery('#resultcamere').append(output);
+
+	        jQuery('#resultcamere').fadeIn('slow');
+	       });
+});
+</script>
+<?php endif; ?>
+
+
 
     
     <?php wp_footer(); ?>

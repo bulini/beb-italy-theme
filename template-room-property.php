@@ -98,13 +98,10 @@ if(isset($_POST['submitted']) && isset($_POST['post_nonce_field']) && wp_verify_
 
 		<div class="row">		
 		 <div class="col-md-12">			
-			 <h3 class="subheader"><?php echo $title; ?></h3>
+			 <h3 class="subheader">Gestione camere - <?php echo $title; ?></h3>
 			 <?php get_template_part('inc/nav-accommodations'); ?>
-			 	 <div data-alert class="alert-box">
-		 <h3>Cosa devo fare?</h3>
-		 <p>Inserisci le tipologie di alloggio che puoi offrire, se sei un hotel inserisci ad esempio camera doppia, camera singola ed il quantitativo di camere in allottment. Se sei una casa vacanze o un bed and breakfast, inserisci camera doppiao camera singola o appartamento intero. Idem per agriturismi e altre tipologie di alloggi.</p>
-  <a href="#" class="close">&times;</a>
-</div>
+		 <p class="bg-warning">Inserisci le tipologie di alloggio che puoi offrire, se sei un hotel inserisci ad esempio camera doppia, camera singola ed il quantitativo di camere in allottment. Se sei una casa vacanze o un bed and breakfast, inserisci camera doppiao camera singola o appartamento intero. Idem per agriturismi e altre tipologie di alloggi.</p>
+
 		 </div>
 		</div>
 	<div class="row room-content">
@@ -118,16 +115,16 @@ if(isset($_POST['submitted']) && isset($_POST['post_nonce_field']) && wp_verify_
 				<legend>Tipologie di alloggio e trattamento</legend>
 				<div class="row">
 					<div class="form-group">
-						<input type="text" placeholder="Nome o tipologia alloggio" name="property_name" id="property_name" value=""/>
+						<input type="text" placeholder="Nome o tipologia alloggio" name="property_name" id="property_name" value="" class="form-control"/>
 					</div>
 					<div class="form-group">
-						<input type="text" placeholder="Ospiti" name="property_maxpax"  id="property_maxpax" value="" />
+						<input type="text" placeholder="Ospiti" name="property_maxpax"  id="property_maxpax" value="" class="form-control"/>
 					</div>
 					<div class="form-group">
-						<input type="text" placeholder="Bambini" name="property_maxchildren"  id="property_maxchildren" value="" />
+						<input type="text" placeholder="Bambini" name="property_maxchildren"  id="property_maxchildren" value="" class="form-control" />
 					</div>
 					<div class="form-group">
-						<input type="text" placeholder="quantit&agrave; disponibile"  id="property_allottments" name="property_allottments" value="" />
+						<input type="text" placeholder="quantit&agrave; disponibile"  id="property_allottments" name="property_allottments" value="" class="form-control" />
 					</div>
 					<div class="form-group">
 						<input type="hidden" placeholder="parente" name="parent_accommodation" value="<?php echo $_GET['prop_id']; ?>" />
@@ -141,7 +138,7 @@ if(isset($_POST['submitted']) && isset($_POST['post_nonce_field']) && wp_verify_
 				<br />
 
 				<div id="camerepresenti"><?php get_properties($current_post); ?>
-					<table id="resultcamere" style="display:none;width:100%">
+					<table id="resultcamere" style="display:none;width:100%" class="table table-striped">
 						
 					</table>
 				</div>
