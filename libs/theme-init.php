@@ -295,7 +295,7 @@ if ( !function_exists('fb_AddThumbColumn') && function_exists('add_theme_support
 		wp_enqueue_style( 'theme', get_template_directory_uri().'/css/theme.css');
 		wp_enqueue_style( 'carousel', get_template_directory_uri().'/carousel.css');
 		wp_enqueue_style( 'flexslider', get_template_directory_uri().'/assets/css/flexslider.css');
-				
+		wp_enqueue_style( 'calendar', get_template_directory_uri().'/css/fullcalendar.css');				
 		wp_enqueue_style( 'font-awesome', get_template_directory_uri().'/font-awesome/css/font-awesome.min.css' );
 		//wp_enqueue_style( 'ekko-lightbox', get_template_directory_uri().'/css/lightbox-themes/ekko-lightbox.css' );
 		//wp_enqueue_style( 'dark', get_template_directory_uri().'/css/lightbox-themes/dark.css' );
@@ -318,7 +318,7 @@ if ( !function_exists('fb_AddThumbColumn') && function_exists('add_theme_support
 		
 		wp_enqueue_script( 'geocomplete-frontend', get_template_directory_uri() . '/assets/js/jquery.geocomplete.min.js', array(), '1.0.0', true );
 		wp_enqueue_script( 'custom', get_template_directory_uri() . '/assets/js/theme.js', array(), '1.0.0', true );
-
+		wp_enqueue_script( 'fullcalendar', get_template_directory_uri() . '/js/fullcalendar.min.js', array(), '1.0.0', true );
 
 		//wp_enqueue_script( 'tagsinput', get_template_directory_uri() . '/js/jquery.tagsinput.js', array(), '1.0.0', true );
 		//wp_enqueue_script( 'ekko-lightbox', get_template_directory_uri() . '/js/ekko-lightbox.js', array(), '1.0.0', true );

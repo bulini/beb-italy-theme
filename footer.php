@@ -40,12 +40,15 @@
 
 	
   <!-- INIT SCRIPT - show gMap onclick -->
-<?php if(is_page('edit-property-allottments')): ?>
-<script type="text/javascript">
-
-
-
-      jQuery('#addcamere').click(function() {
+<?php if(is_page('edit-availability-property')): 
+	
+	  $booking_engine = new BookingCalendar();
+	  //$booked_dates = $booking_engine->booking_by_month('2013',$_GET['prop_id']);
+	  //$booked_dates=$booking_engine->BookedNight($_GET['prop_id']);
+	  $booked_dates=$booking_engine->GetOccupancy($_GET['prop_id']);
+?>
+<script>
+ jQuery('#addcamere').click(function() {
 
 
        	jQuery.post(ajaxurl, { action: 'test_ajax', data:jQuery("#room_form").serialize() }, function(output) {
@@ -57,6 +60,49 @@
 	       });
 });
 </script>
+  <script>
+
+	jQuery(document).ready(function() {
+	
+		var date = new Date();
+		var d = date.getDate();
+		var m = date.getMonth();
+		var y = date.getFullYear();
+		
+		jQuery('#calendar').fullCalendar({
+
+		
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,basicWeek,basicDay'
+			},
+			editable: true,
+			events: [
+			
+			<?php 
+			foreach($booked_dates as $booking):
+				//ciclare le request con start end e il gioco è fatto checkin checkout
+				 ?>
+				{
+					title: '<?php echo $booking->payment_status ?> <?php echo $booking->contactsurname ?> <?php echo $booking->contactname ?> <?php echo $booking->total_price; ?> <?php echo $booking->notes; ?>',
+					start: new Date(2014, <?php echo $booking_engine->date_from_mysql($booking->checkin,'m')-1; ?>, <?php echo $booking_engine->date_from_mysql($booking->checkin,'d'); ?>),
+					end: new Date(2014, <?php echo $booking_engine->date_from_mysql($booking->checkout,'m')-1; ?>, <?php echo $booking_engine->date_from_mysql($booking->checkout,'d')-1; ?>)				
+
+				},				
+				<?php endforeach;
+				
+			?>
+
+			]
+		});
+		
+	});
+
+
+
+</script>
+
 <?php endif; ?>
 
 
