@@ -11,7 +11,7 @@ global $paged;
 	
 ?>
 <?php //get_template_part('header-logged'); ?>
-<div class="container">
+<div class="container" style="background:#f9f9f9;">
 <!-- #primary BEGIN -->
 	<div class="row">
 		<?php get_template_part('inc/breadcrumb-owner'); ?>

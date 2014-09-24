@@ -94,7 +94,7 @@ if(isset($_POST['submitted']) && isset($_POST['post_nonce_field']) && wp_verify_
 		
 			<!-- #primary BEGIN -->
 
-		<div class="container">
+		<div class="container" style="background:#f9f9f9;">
 
 		<div class="row">		
 		 <div class="col-md-12">			

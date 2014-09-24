@@ -49,38 +49,24 @@ if(isset($_POST['submitted']) && isset($_POST['post_nonce_field']) && wp_verify_
 
 }
 
-
-
+$context='Gestione Calendario';
 ?>
 
 
-<div class="container">
+<div class="container" style="background:#f9f9f9;">
 	<!-- #primary BEGIN -->
+	
 	<div class="row">
 		<?php get_template_part('inc/breadcrumb-owner'); ?>
-		<div class="alert-box secondary">
-  This is a secondary alert (div.alert-box.secondary).
-  <a href="" class="close">&times;</a>
-</div>
-	</div>
-
-
-		<div class="row">		
-		 <div class="col-md-12">			
-			 <h3 class="subheader"><?php echo $title; ?></h3>
-		 </div>
-		</div>
-	
+	</div>	
 	<div class="row">
 		<?php get_template_part('inc/nav-owner'); ?>
 	</div>
 	
 	<div class="row">
 		 <div class="col-md-12">		
-			<div class="alert-box secondary">
 				Numero di unit&agrave; in allottment: 			
-				<a href="" class="close">&times;</a>
-			</div>
+
 		<h3>Camere occupate</h3>
 		<?php $occupancies=$bookingcal->GetOccupancy($current_post); 
 			if(count($occupancies)>0): ?>
@@ -111,34 +97,33 @@ if(isset($_POST['submitted']) && isset($_POST['post_nonce_field']) && wp_verify_
 			</table>
 		<hr />
 		<form action="" method="post">
-		Occupa camera / alloggio
-			
-				<p>Inserendo data inizio data fine e note del blocco, potrete bloccare la stanza</p>
+
 				
 		
-		
-		<div class="row">
-			<div class="col-md-6">		
-		        <div class="col-md-6">    
-					   <input type="text" id="checkin" name="bookandpaycalendar_checkin" placeholder="Data inizio" class="datepicker" />            
-		        </div>  
-		        <div class="col-md-6">    
-		         <input type="text" id="checkout" name="bookandpaycalendar_checkout" placeholder="Data fine" class="datepicker" />            
-		        </div>
-
+		<div class="well">			
+				<p>Inserendo data inizio data fine e note del blocco, potrete bloccare la stanza</p>		
+			<div class="row">
+				<div class="col-md-6">		
+			        <div class="col-md-6">    
+						<input type="text" id="checkin" name="bookandpaycalendar_checkin" placeholder="Data inizio" class="datepicker" />            
+			        </div>  
+			        <div class="col-md-6">    
+			         	<input type="text" id="checkout" name="bookandpaycalendar_checkout" placeholder="Data fine" class="datepicker" />            
+			        </div>
+				</div>
+	
+				<div class="col-md-6">			
+					<div class="col-md-6">
+				        <input type="text" id="note" name="owner_notes" placeholder="Motivo o nominativo (pieno chiuso)"  />            
+				        <?php wp_nonce_field('post_nonce', 'post_nonce_field'); ?>		
+				    </div>			
+				    <div class="col-md-6">
+						<input type="hidden" name="submitted" id="submitted" value="true" />
+						<input type="submit" value="blocca camera" class="button" />
+				    </div>
+				</div>			
 			</div>
-			<div class="col-md-6">			
-				<div class="col-md-6">
-			        <input type="text" id="note" name="owner_notes" placeholder="Motivo o nominativo (pieno chiuso)"  />            
-			        <?php wp_nonce_field('post_nonce', 'post_nonce_field'); ?>		
-			    </div>
 			
-			    <div class="col-md-6">
-					<input type="hidden" name="submitted" id="submitted" value="true" />
-					<input type="submit" value="blocca camera" class="button" />
-			    </div>
-			</div>
-		
 		</div>
 		
 		

@@ -97,7 +97,7 @@ if (is_user_logged_in() && (current_user_can('edit_others_posts') || $current_us
 		<?php get_template_part('header-logged'); ?>
 		
 			<!-- #primary BEGIN -->
-<div class="container">
+<div class="container" style="background:#f9f9f9;">
 
 
 		<div class="row">		
@@ -139,7 +139,7 @@ if (is_user_logged_in() && (current_user_can('edit_others_posts') || $current_us
 					
 					<div class="form-group">
 					<label for="bookandpay_showprice">Prezzo a partire da:</label>
-				<input type="text" class="two columns" name="bookandpay_showprice" id="bookandpay_showprice" value="<?php echo get_post_meta($current_post,'bookandpay_showprice',true); ?>" />
+						<input type="text" class="form-control" name="bookandpay_showprice" id="bookandpay_showprice" value="<?php echo get_post_meta($current_post,'bookandpay_showprice',true); ?>" />
 
 					</div>
 					
