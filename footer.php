@@ -106,52 +106,58 @@
 <?php endif; ?>
 
 <?php if(is_page('edit-prices')): 
+	$_calendar = new MyCalendar();
+	$month = '09';
+	$num_weeks=$_calendar->num_weeks($month, 2014); // August 2012
+	$days=$_calendar->days($month, 2014, $i, $num_weeks);
+
 	
-	  $bookingcal= new BookingCalendar();
-	  $prices=$bookingcal->get_room_prices($_GET['prop_id']);
+	$current_post = $_GET['prop_id'];
+	$bookingcal= new BookingCalendar();
+	$prices=$bookingcal->get_room_prices($current_post);
 ?>
+
 <script>
+
 	jQuery(document).ready(function() {
-	
+		
 		var date = new Date();
 		var d = date.getDate();
 		var m = date.getMonth();
 		var y = date.getFullYear();
-		
-		jQuery('#calendar').fullCalendar({
 
-		
+		jQuery('#prices_calendar').fullCalendar({
 			header: {
 				left: 'prev,next today',
 				center: 'title',
 				right: 'month,basicWeek,basicDay'
 			},
+			allDay:true,
+			defaultDate: date,
 			editable: true,
+			eventLimit: false, // allow "more" link when too many events
 			events: [
 			
-			<?php 
-			foreach($prices as $price):
-				//ciclare le request con start end e il gioco è fatto checkin checkout
-				 ?>
+			<?php foreach($days as $day): ?>
 				{
-					title: '<?php echo $price->adult_price; ?>',
-					start: new Date(2014, <?php echo $booking_engine->date_from_mysql($booking->checkin,'m')-1; ?>, <?php echo $booking_engine->date_from_mysql($booking->checkin,'d'); ?>),
-					end: new Date(2014, <?php echo $booking_engine->date_from_mysql($booking->checkout,'m')-1; ?>, <?php echo $booking_engine->date_from_mysql($booking->checkout,'d')-1; ?>)			
-
-				},				
-				<?php endforeach;
-				
-			?>
-
+					title: '<?php echo DailyPrices($current_post,'2014-09'.$day,2); ?>',
+					start: '<?php echo '2014-09'.$day; ?>'
+				},
+			<?php endforeach; ?>
 			]
 		});
 		
 	});
 
-
-
 </script>
- <?php endif; ?>  
+
+
+
+<?php endif; ?>
+
+
+
+    
     <?php wp_footer(); ?>
     
   </body>
