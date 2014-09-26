@@ -105,9 +105,53 @@
 
 <?php endif; ?>
 
+<?php if(is_page('edit-prices')): 
+	
+	  $bookingcal= new BookingCalendar();
+	  $prices=$bookingcal->get_room_prices($_GET['prop_id']);
+?>
+<script>
+	jQuery(document).ready(function() {
+	
+		var date = new Date();
+		var d = date.getDate();
+		var m = date.getMonth();
+		var y = date.getFullYear();
+		
+		jQuery('#calendar').fullCalendar({
+
+		
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,basicWeek,basicDay'
+			},
+			editable: true,
+			events: [
+			
+			<?php 
+			foreach($prices as $price):
+				//ciclare le request con start end e il gioco è fatto checkin checkout
+				 ?>
+				{
+					title: '<?php echo $price->adult_price; ?>',
+					start: new Date(2014, <?php echo $booking_engine->date_from_mysql($booking->checkin,'m')-1; ?>, <?php echo $booking_engine->date_from_mysql($booking->checkin,'d'); ?>),
+					end: new Date(2014, <?php echo $booking_engine->date_from_mysql($booking->checkout,'m')-1; ?>, <?php echo $booking_engine->date_from_mysql($booking->checkout,'d')-1; ?>)			
+
+				},				
+				<?php endforeach;
+				
+			?>
+
+			]
+		});
+		
+	});
 
 
-    
+
+</script>
+ <?php endif; ?>  
     <?php wp_footer(); ?>
     
   </body>
