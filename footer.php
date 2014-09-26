@@ -105,6 +105,56 @@
 
 <?php endif; ?>
 
+<?php if(is_page('edit-prices')): 
+	$_calendar = new MyCalendar();
+	$month = '09';
+	$num_weeks=$_calendar->num_weeks($month, 2014); // August 2012
+	$days=$_calendar->days($month, 2014, $i, $num_weeks);
+
+	
+	$current_post = $_GET['prop_id'];
+	$bookingcal= new BookingCalendar();
+	$prices=$bookingcal->get_room_prices($current_post);
+?>
+
+<script>
+
+	jQuery(document).ready(function() {
+		
+		var date = new Date();
+		var d = date.getDate();
+		var m = date.getMonth();
+		var y = date.getFullYear();
+
+		jQuery('#prices_calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,basicWeek,basicDay'
+			},
+			allDay:true,
+			defaultDate: date,
+			editable: true,
+			eventLimit: false, // allow "more" link when too many events
+			events: [
+			
+			<?php foreach($days as $day): ?>
+				{
+					title: '<?php echo DailyPrices($current_post,'2014-09'.$day,2); ?>',
+					start: '<?php echo '2014-09'.$day; ?>'
+				},
+			<?php endforeach; ?>
+			]
+		});
+		
+	});
+
+</script>
+
+
+
+<?php endif; ?>
+
 
 
     

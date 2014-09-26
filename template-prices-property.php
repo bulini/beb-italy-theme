@@ -106,62 +106,8 @@ if(isset($_POST['submitted']) && isset($_POST['post_nonce_field']) && wp_verify_
 		</fieldset>
 		</form>
 		
+		<div id="prices_calendar"></div>
 		
-		
-		<table style="width:100%;">
-			<thead>
-				<tr>
-					<th>Da</th><th>a</th><th>Prezzo</th><th>Nome periodo</th><th>Offerta speciale</th><th>Elimina</th>
-				</tr>
-			</thead>
-			<tbody>
-		<?php
-			$bookingcal= new BookingCalendar();
-			$prices=$bookingcal->get_room_prices($current_post);
-			
-
-				
-			
-
-			foreach($prices as $price): 
-		?>
-		<tr>
-			<td><?php echo date("d/m/Y",strtotime($price->from_date)); ?></td>
-			<td><?php echo date("d/m/Y",strtotime($price->to_date)); ?></td>
-			<td><?php echo $price->adult_price; ?></td>
-			<td><?php echo $price->notes; ?></td>
-			<td><a href="<?php echo get_permalink($id); ?>?checkin=<?php echo date("d/m/Y",strtotime($price->from_date)); ?>&checkout=<?php echo date("d/m/Y",strtotime($price->to_date)); ?>&people=2&special_deal=1&prop_id=<?php echo $price->post_id; ?>"><?php if($price->offer==1){ echo 'Link Offerta'; } ?></a></td>
-			<td><a onclick="return confirm('sei sicuro di voler cancellare questo prezzo?')" href="<?php bloginfo('siteurl'); ?>/owner-panel/edit-prices?prop_id=<?php echo $_GET['prop_id']; ?>&del_period=<?php echo $price->id_price; ?>">Elimina periodo</a></td>
-		</tr>
-		<?php endforeach; ?>
-			</tbody>
-		</table>
-		
-		<?php
-			for($m=1;$m<=12;$m++):
-				$month=$m;
-				$year=2014;
-				$_calendar = new MyCalendar();
-				$num_weeks=$_calendar->num_weeks($month, 2014); // August 2012
-			?>
-			<h3 class="subheader"><?php echo NomeMese($month); ?></h3>
-			<table style="width:100%;">
-				<tr>
-					<thead>
-						<th>Lun</th><th>Mar</th><th>Mer</th><th>Gio</th><th>Ven</th><th>Sab</th><th>Dom</th></tr>
-					</thead>
-					<tbody>
-					<?php for($i=1;$i<=$num_weeks;$i++):?>
-					<tr>
-						<?php $days=$_calendar->days($month, 2014, $i, $num_weeks);
-							foreach($days as $day):?>
-							<td style="text-align:center;"><?=$day?$day:"&nbsp;"?><br /><b><?php if($day) { echo DailyPrices($current_post,$year.'-'.$month.'-'.$day,2); } ?></b></td>
-						<?php endforeach;?>
-					</tr>
-			<?php endfor;?>
-					</tbody>
-			</table>
-		<?php endfor; ?>
 		
 	</div><!-- #primary END -->
 	</div>
