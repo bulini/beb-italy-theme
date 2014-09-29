@@ -138,10 +138,17 @@
 			eventLimit: false, // allow "more" link when too many events
 			events: [
 			
-			<?php foreach($days as $day): ?>
+			{
+				title: '80',
+				start: '2014-01-01',
+				end: '2014-12-31'
+			},
+			
+			<?php foreach($prices as $price): ?>
 				{
-					title: '<?php echo DailyPrices($current_post,'2014-09'.$day,2); ?>',
-					start: '<?php echo '2014-09'.$day; ?>'
+					title: '<?php echo $price->adult_price; ?>',
+					start: '<?php echo $price->from_date; ?>',
+					end: '<?php echo $price->to_date; ?>'
 				},
 			<?php endforeach; ?>
 			]

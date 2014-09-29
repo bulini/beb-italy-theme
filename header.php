@@ -22,7 +22,7 @@ $options=load_theme_options();
 
 
 
-    <nav class="navbar <?php echo $options['navbar_select'];?> navbar-fixed-top navbar-inverse" role="navigation">
+    <nav class="navbar <?php echo $options['navbar_select'];?> navbar-fixed-top" role="navigation">
 		<div class="container transparent">
             <div class="navbar-header">
             <a href="<?php bloginfo('siteurl'); ?>" id="sitetitle" ><img src="<?php LogoImage(); ?>" style="margin-top:6px;" alt="<?php bloginfo('name'); ?>"/></a>
