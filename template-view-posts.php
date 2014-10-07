@@ -1,14 +1,11 @@
-<?php get_header();
-$options=load_theme_options();
- ?>
 <?php 
 if (!is_user_logged_in() ) { wp_redirect( wp_login_url(get_permalink( $post->ID )) ); exit;	} 
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 global $paged;
-
 /* Template Name: View Posts */ 
 
-	
+get_header();
+$options=load_theme_options();
 ?>
 <?php //get_template_part('header-logged'); ?>
 <div class="container" style="background:#f9f9f9;">

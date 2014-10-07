@@ -6,6 +6,36 @@ jQuery('.cmb_select').addClass('form-control');
 jQuery('.button-primary').addClass('btn btn-success');
 jQuery('.button').addClass('btn btn-success');
 
+jQuery('#addcamere').click(function() {
+   	jQuery.post(ajaxurl, { action: 'test_ajax', data:jQuery("#room_form").serialize() }, function(output) {
+       jQuery('#wait_room').hide();
+       jQuery('#resultcamere').append(output);
+        jQuery('#resultcamere').fadeIn('slow');
+       });
+  });
+    
+jQuery('.remImage').click(function() {
+var attID = jQuery(this).attr('name');
+jQuery.ajax({
+    type: 'post',
+    url: '/wp-admin/admin-ajax.php',
+    data: {
+        action: 'delete_attachment',
+        att_ID: jQuery(this).attr('name'),
+        _ajax_nonce: jQuery('#nonce').val(),
+        post_type: 'attachment'
+    },
+    success: function() {
+        alert('#file-'+attID+' cancellato con successo');
+        //console.log('#file-'+attID)
+        jQuery('#file-'+attID).fadeOut();    
+    }
+ });
+ });
+
+
+
+
 
 jQuery(window).load(function(){
    jQuery('.flexslider').flexslider({

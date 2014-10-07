@@ -120,6 +120,7 @@ function has_properties($id)
 
 function get_properties($id)
 {
+	$url = get_bloginfo('siteurl');
 	$properties=get_posts('post_type=properties&post_parent='.$id);
 	//print_r($properties);
 	$i=0;
@@ -202,8 +203,16 @@ function get_property($id)
            	<?php echo $allottments; ?>
           </td>
           <td>
-           <i class="general foundicon-calendar"><span class="has-tip" data-width="210" title="Da qui puoi impostare la disponibilit&agrave; periodica della stanza"> <a href="edit-availability/?prop_id=<?php echo $property->ID ?>">disponibilit&agrave;</a></i> 
-            | <a href="edit-prices/?prop_id=<?php echo $property->ID ?>">prezzi</a></span>
+           <i class="general foundicon-calendar"><span class="has-tip" data-width="210" title="Da qui puoi impostare la disponibilit&agrave; periodica della stanza"> <a href="<?php bloginfo('siteurl');?>/owner-panel/edit-availability-property/?prop_id=<?php echo $property->ID ?>">disponibilit&agrave;</a></i> 
+            | <a href="<?php bloginfo('siteurl');?>/owner-panel/edit-prices/?prop_id=<?php echo $property->ID ?>">prezzi</a></span>
+            | <?php 
+	            
+	            
+		            echo '<a href="';
+		            echo wp_nonce_url("$url/wp-admin/post.php?post=$property->ID&action=delete", 'delete-post_' . $property->ID);
+		            echo '">Elimina</a>';
+		      
+            ?>
           </td>
 
  </tr>
